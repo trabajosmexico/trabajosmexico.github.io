@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trabajos México - Registro</title>
-  <!-- Fuente y estilos -->
+
+  <!-- Fuente y Bootstrap -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
   <style>
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #004e92, #000428);
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #eaf2f8, #fdfdfd);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -19,195 +21,167 @@
       position: relative;
       overflow: hidden;
     }
-    .vacantes-bg {
+
+    /* Fondo con vacantes flotando */
+    .vacantes-fondo {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1rem;
       padding: 2rem;
+      opacity: 0.25;
+      filter: blur(2px);
       z-index: 1;
-      opacity: 0.2;
     }
+
     .vacante-card {
-      background: #fff;
+      background: white;
       border-radius: 12px;
       padding: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: 0.3s;
       cursor: pointer;
-      transition: transform 0.3s;
     }
+
     .vacante-card:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
-    .vacante-title {
-      font-weight: 600;
-      color: #004e92;
-    }
-    .vacante-meta {
-      font-size: 0.85rem;
-      color: #555;
-    }
-    .container {
-      background: #fff;
-      padding: 2.5rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
+
+    /* Formulario centrado */
+    .form-container {
       position: relative;
       z-index: 2;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
     }
-    .logo {
-      font-size: 1.8rem;
+
+    .form-container h1 {
       font-weight: 600;
-      color: #004e92;
-      margin-bottom: 0.5rem;
+      color: #004aad;
     }
-    .subtitle {
-      font-size: 0.95rem;
-      color: #555;
+
+    .form-container p {
+      color: #666;
       margin-bottom: 1.5rem;
     }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    input {
+
+    input, select {
+      width: 100%;
+      margin: 0.5rem 0;
       padding: 0.8rem;
-      border: 1px solid #ddd;
       border-radius: 10px;
-      font-size: 0.95rem;
-      outline: none;
-      transition: 0.2s;
+      border: 1px solid #ccc;
     }
-    input:focus {
-      border-color: #004e92;
-      box-shadow: 0 0 0 2px rgba(0, 78, 146, 0.2);
-    }
+
     button {
-      padding: 0.9rem;
-      background: #004e92;
+      margin-top: 1.5rem;
+      width: 100%;
+      background: #004aad;
       color: white;
       border: none;
+      padding: 0.9rem;
       border-radius: 10px;
       font-size: 1rem;
-      font-weight: 500;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
-    button:hover {
-      background: #006bbf;
-    }
-    .footer {
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      color: #777;
-    }
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 3;
-    }
-    .modal-content {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
-    .modal-content h2 {
-      color: #004e92;
-      margin-bottom: 1rem;
-    }
-    .close-btn {
+
+    button:hover { background: #003080; }
+
+    .checkbox {
+      text-align: left;
+      font-size: 0.9rem;
       margin-top: 1rem;
-      background: #004e92;
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <!-- Fondo con vacantes teaser -->
-  <div class="vacantes-bg">
-    <div class="vacante-card">
-      <div class="vacante-title">Auxiliar Administrativo</div>
-      <div class="vacante-meta">CDMX · Empresa XYZ</div>
+
+<!-- Fondo de vacantes -->
+<div class="vacantes-fondo">
+  <div class="vacante-card" data-bs-toggle="modal" data-bs-target="#registroModal">
+    <h6>Desarrollador Frontend</h6>
+    <p><i class="bi bi-building"></i> Empresa TechMX</p>
+    <p><i class="bi bi-geo-alt"></i> CDMX</p>
+  </div>
+  <div class="vacante-card" data-bs-toggle="modal" data-bs-target="#registroModal">
+    <h6>Analista de Recursos Humanos</h6>
+    <p><i class="bi bi-building"></i> HR Solutions</p>
+    <p><i class="bi bi-geo-alt"></i> Toluca</p>
+  </div>
+  <div class="vacante-card" data-bs-toggle="modal" data-bs-target="#registroModal">
+    <h6>Diseñador Gráfico</h6>
+    <p><i class="bi bi-building"></i> Creativos MX</p>
+    <p><i class="bi bi-geo-alt"></i> Guadalajara</p>
+  </div>
+  <div class="vacante-card" data-bs-toggle="modal" data-bs-target="#registroModal">
+    <h6>Auxiliar Administrativo</h6>
+    <p><i class="bi bi-building"></i> Empresa ABC</p>
+    <p><i class="bi bi-geo-alt"></i> Querétaro</p>
+  </div>
+</div>
+
+<!-- Formulario -->
+<div class="form-container">
+  <h1><i class="bi bi-briefcase-fill"></i> Trabajos México</h1>
+  <p>Accede a las mejores vacantes, regístrate en segundos.</p>
+
+  <form action="https://formspree.io/f/mblzjvbn" method="POST">
+    <input type="text" name="nombre" placeholder="Nombre completo" required>
+    <input type="email" name="email" placeholder="Correo electrónico" required>
+    <input type="tel" name="telefono" placeholder="Teléfono" required>
+    <select name="ubicacion" required>
+      <option value="">Selecciona tu ciudad</option>
+      <option>CDMX</option>
+      <option>Toluca</option>
+      <option>Querétaro</option>
+      <option>Guadalajara</option>
+      <option>Monterrey</option>
+      <option>Puebla</option>
+      <option>Otro</option>
+    </select>
+
+    <div class="checkbox">
+      <input type="checkbox" required> 
+      Acepto que mis datos sean tratados con fines de reclutamiento y selección conforme al aviso de privacidad.
     </div>
-    <div class="vacante-card">
-      <div class="vacante-title">Asesor de Ventas</div>
-      <div class="vacante-meta">Toluca · Tienda ABC</div>
-    </div>
-    <div class="vacante-card">
-      <div class="vacante-title">Capturista de Datos</div>
-      <div class="vacante-meta">Querétaro · Servicios QRO</div>
-    </div>
-    <div class="vacante-card">
-      <div class="vacante-title">Reclutador Jr.</div>
-      <div class="vacante-meta">Guadalajara · RRHH Global</div>
+
+    <button type="submit">Registrarme</button>
+  </form>
+  <footer>
+    &copy; 2025 Trabajos México - Todos los derechos reservados
+  </footer>
+</div>
+
+<!-- Modal elegante -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4 text-center">
+      <i class="bi bi-lock-fill text-primary" style="font-size:2rem;"></i>
+      <h5 class="mt-3">Acceso restringido</h5>
+      <p>Para ver los detalles completos de las vacantes, por favor regístrate en <strong>Trabajos México</strong>.</p>
+      <button class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
     </div>
   </div>
+</div>
 
-  <!-- Registro principal -->
-  <div class="container">
-    <div class="logo">
-      <i class="bi bi-briefcase-fill"></i> Trabajos México
-    </div>
-    <p class="subtitle">Accede a las mejores vacantes, regístrate en segundos</p>
-
-    <form id="registerForm">
-      <input type="text" id="name" placeholder="Nombre completo" required>
-      <input type="email" id="email" placeholder="Correo electrónico" required>
-      <input type="password" id="password" placeholder="Contraseña" required>
-      <button type="submit"><i class="bi bi-box-arrow-in-right"></i> Registrarme</button>
-    </form>
-
-    <div class="footer">
-      © 2025 Trabajos México. Todos los derechos reservados.
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <h2>🔒 Contenido exclusivo</h2>
-      <p>Regístrate para acceder a los detalles completos de esta vacante.</p>
-      <button class="close-btn" onclick="closeModal()">Entendido</button>
-    </div>
-  </div>
-
-  <script>
-    // Vacantes clickeables
-    document.querySelectorAll(".vacante-card").forEach(card => {
-      card.addEventListener("click", () => {
-        document.getElementById("modal").style.display = "flex";
-      });
-    });
-
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-
-    // Registro
-    document.getElementById("registerForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      localStorage.setItem("registered", "true");
-      window.location.href = "dashboard.html";
-    });
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
