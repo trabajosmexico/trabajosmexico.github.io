@@ -38,7 +38,7 @@
         <a href="#registro" class="bg-white text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">
           Registro Gratis
         </a>
-        <a href="#registro-empresas" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500">
+        <a href="registro_empresa.html" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500">
           Registro Empresas
         </a>
       </div>
@@ -89,24 +89,6 @@
     </form>
   </section>
 
-  <!-- Formulario de Registro Empresas -->
-  <section id="registro-empresas" class="bg-white shadow-lg rounded-lg max-w-lg mx-auto mt-20 p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Empresas</h2>
-    <form id="registroEmpresasForm" class="space-y-5">
-      <input type="text" placeholder="Nombre de la empresa" class="w-full p-3 border rounded-lg" required>
-      <input type="email" placeholder="Correo electrónico de contacto" class="w-full p-3 border rounded-lg" required>
-      <input type="password" placeholder="Contraseña" class="w-full p-3 border rounded-lg" required>
-      
-      <!-- Checkbox obligatorio -->
-      <label class="flex items-start space-x-2 text-sm text-gray-600">
-        <input type="checkbox" id="aceptoTerminosEmpresas" required class="mt-1">
-        <span>Al registrarme acepto que los datos serán utilizados con fines de publicación de empleos.</span>
-      </label>
-
-      <button type="submit" class="w-full bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600">Registrarse Gratis</button>
-    </form>
-  </section>
-
   <script>
     // Vacantes simuladas
     const vacantes = [
@@ -130,7 +112,6 @@
       contenedor.appendChild(card);
     });
 
-    // Modal funciones
     function abrirModal() {
       document.getElementById("registroModal").classList.remove("hidden");
       document.getElementById("registroModal").classList.add("flex");
@@ -147,16 +128,6 @@
         alert("Debes aceptar los términos antes de registrarte.");
       } else {
         alert("Registro exitoso 🎉 (Candidato)");
-      }
-    });
-
-    // Validación de registro empresas
-    document.getElementById("registroEmpresasForm").addEventListener("submit", function(e){
-      if(!document.getElementById("aceptoTerminosEmpresas").checked){
-        e.preventDefault();
-        alert("Debes aceptar los términos antes de registrarte.");
-      } else {
-        alert("Registro exitoso 🎉 (Empresa)");
       }
     });
   </script>
