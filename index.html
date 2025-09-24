@@ -11,6 +11,7 @@
 body {
   font-family: 'Poppins', Arial, sans-serif;
   background: linear-gradient(120deg,#f0f4ff,#f2f3f5);
+  margin:0;
 }
 header {
   background: linear-gradient(90deg, #004aad, #0066ff);
@@ -41,18 +42,56 @@ header h1 { margin-bottom: 0.5rem; }
 .btn-empresa:hover { background: #e6b800; }
 .btn-candidato:hover { background: #f0f0f0; }
 
+/* Formulario y sección visual */
+.registration-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 3rem 1rem;
+  gap: 2rem;
+}
+.left-panel {
+  flex: 1 1 300px;
+  max-width: 400px;
+  background: #004aad;
+  color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.left-panel h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.left-panel p { margin-bottom: 1rem; }
+.left-panel .benefit {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.left-panel .benefit i {
+  font-size: 1.5rem;
+  margin-right: 0.8rem;
+}
+
 .form-container {
+  flex: 1 1 300px;
+  max-width: 400px;
   background: white;
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-  max-width: 600px;
-  margin: 4rem auto 2rem;
 }
 .form-container h2::after {
   content:" (¡Registro gratuito!)";
   font-size:0.9rem;
   color:#004aad;
+}
+.form-container input, .form-container select {
+  margin-bottom: 1rem;
 }
 
 /* Recuadro elegante registro exitoso */
@@ -97,41 +136,56 @@ footer {
   <p>Encuentra tu próximo empleo en México</p>
   <div class="header-buttons">
     <button class="btn-empresa" onclick="location.href='registro_empresa.html'">Registro Empresas</button>
-    <button class="btn-candidato" onclick="document.getElementById('registroCandidato').scrollIntoView({behavior:'smooth'})">Registro Candidatos</button>
+    <button class="btn-candidato" onclick="document.getElementById('formCandidato').scrollIntoView({behavior:'smooth'})">Registro Candidatos</button>
   </div>
 </header>
 
-<div id="registroCandidato" class="form-container">
-  <h2 class="mb-4 text-center">Regístrate como candidato</h2>
-  <form id="formCandidato">
-    <label>Nombre completo:</label>
-    <input type="text" name="nombre" class="form-control mb-2" required>
+<div class="registration-section">
 
-    <label>Correo electrónico:</label>
-    <input type="email" name="email" class="form-control mb-2" required>
+  <!-- Panel visual izquierdo -->
+  <div class="left-panel">
+    <h2>Bienvenido a Trabajos México</h2>
+    <p>¡Regístrate gratis y accede a miles de vacantes en todo México!</p>
+    <div class="benefit"><i class="bi bi-person-check"></i> Registro seguro y rápido</div>
+    <div class="benefit"><i class="bi bi-briefcase"></i> Miles de vacantes disponibles</div>
+    <div class="benefit"><i class="bi bi-geo-alt"></i> Acceso a empleos por ciudad</div>
+    <div class="benefit"><i class="bi bi-clock"></i> Actualizaciones diarias</div>
+  </div>
 
-    <label>Teléfono:</label>
-    <input type="tel" name="telefono" class="form-control mb-2" required>
+  <!-- Panel formulario derecho -->
+  <div class="form-container" id="registroCandidato">
+    <h2 class="mb-4 text-center">Regístrate como candidato</h2>
+    <form id="formCandidato">
+      <label>Nombre completo:</label>
+      <input type="text" name="nombre" class="form-control" required>
 
-    <label>Ubicación:</label>
-    <select name="ubicacion" class="form-control mb-3" required>
-      <option value="">Selecciona tu ciudad</option>
-      <option>CDMX</option>
-      <option>Toluca</option>
-      <option>Querétaro</option>
-      <option>Guadalajara</option>
-      <option>Monterrey</option>
-      <option>Puebla</option>
-      <option>Otro</option>
-    </select>
+      <label>Correo electrónico:</label>
+      <input type="email" name="email" class="form-control" required>
 
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" id="acepto" required>
-      <label class="form-check-label">Acepto que mis datos sean tratados con fines de reclutamiento y selección</label>
-    </div>
+      <label>Teléfono:</label>
+      <input type="tel" name="telefono" class="form-control" required>
 
-    <button type="submit" class="btn btn-primary w-100">Enviar y Registrar</button>
-  </form>
+      <label>Ubicación:</label>
+      <select name="ubicacion" class="form-control" required>
+        <option value="">Selecciona tu ciudad</option>
+        <option>CDMX</option>
+        <option>Toluca</option>
+        <option>Querétaro</option>
+        <option>Guadalajara</option>
+        <option>Monterrey</option>
+        <option>Puebla</option>
+        <option>Otro</option>
+      </select>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="acepto" required>
+        <label class="form-check-label">Acepto que mis datos sean tratados con fines de reclutamiento y selección</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Enviar y Registrar</button>
+    </form>
+  </div>
+
 </div>
 
 <!-- Recuadro elegante de registro exitoso -->
@@ -168,11 +222,9 @@ footer {
     const data = {};
     formData.forEach((value,key) => data[key] = value);
 
-    // Guardar en localStorage y marcar sesión activa
     localStorage.setItem('candidato', JSON.stringify(data));
     localStorage.setItem('sesionActiva', 'true');
 
-    // Enviar a Formspree
     fetch('https://formspree.io/f/mblzjvbn', {
       method: 'POST',
       headers: { 'Accept': 'application/json' },
