@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - Trabajos México</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-900 text-white p-4 shadow-lg">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Trabajos México</h1>
+      <a href="index.html" class="bg-white text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
+        Volver al Inicio
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenido de contacto -->
+  <main class="max-w-3xl mx-auto mt-12 bg-white shadow-2xl rounded-2xl p-8">
+    <h2 class="text-3xl font-bold text-blue-900 mb-6 text-center">Contacto</h2>
+    <p class="mb-4 text-gray-700 text-center">Si tienes alguna duda, sugerencia o necesitas ayuda, contáctanos mediante el siguiente formulario o a través de nuestro correo electrónico.</p>
+    
+    <form class="space-y-5">
+      <input type="text" placeholder="Nombre completo" class="w-full p-3 border rounded-lg" required>
+      <input type="email" placeholder="Correo electrónico" class="w-full p-3 border rounded-lg" required>
+      <textarea placeholder="Mensaje" class="w-full p-3 border rounded-lg h-32" required></textarea>
+      <button type="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg font-semibold hover:bg-blue-900 transition">
+        Enviar Mensaje
+      </button>
+    </form>
+
+    <p class="mt-6 text-gray-600 text-center text-sm">
+      También puedes escribirnos directamente a: <strong>contacto@trabajosmexico.com</strong>
+    </p>
+  </main>
+
+  <!-- Footer global -->
+  <footer class="bg-gray-900 text-white mt-12 py-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-5">
+      <p class="text-sm mb-4 md:mb-0">&copy; 2025 Trabajos México - Todos los derechos reservados</p>
+      <div class="flex gap-6 text-sm">
+        <a href="contacto.html" class="hover:text-yellow-400 transition">Contacto</a>
+        <a href="aviso_privacidad.html" class="hover:text-yellow-400 transition">Aviso de Privacidad</a>
+        <a href="terminos.html" class="hover:text-yellow-400 transition">Términos y Condiciones</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
