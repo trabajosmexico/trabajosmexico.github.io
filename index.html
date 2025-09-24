@@ -1,78 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trabajos México</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <style>
-    body {
-      font-family: 'Poppins', Arial, sans-serif;
-      background: #f2f3f5;
-      position: relative;
-      overflow-x: hidden;
-    }
-    header {
-      background: linear-gradient(90deg, #004aad, #0066ff);
-      color: white;
-      text-align: center;
-      padding: 3rem 1rem;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-      position: relative;
-    }
-    header h1 { margin-bottom: 0.5rem; }
-    .header-buttons {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 10px;
-    }
-    .header-buttons button {
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .btn-empresa { background: #ffcc00; color: #004aad; }
-    .btn-candidato { background: #ffffff; color: #004aad; }
-    .btn-empresa:hover { background: #e6b800; }
-    .btn-candidato:hover { background: #f0f0f0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabajos México</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(120deg,#f0f4ff,#f2f3f5);
+  position: relative;
+  overflow-x: hidden;
+}
+header {
+  background: linear-gradient(90deg, #004aad, #0066ff);
+  color: white;
+  text-align: center;
+  padding: 3rem 1rem;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  position: relative;
+}
+header h1 { margin-bottom: 0.5rem; }
+.header-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+.header-buttons button {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-empresa { background: #ffcc00; color: #004aad; }
+.btn-candidato { background: #ffffff; color: #004aad; }
+.btn-empresa:hover { background: #e6b800; }
+.btn-candidato:hover { background: #f0f0f0; }
 
-    .floating-card {
-      width: 180px;
-      background: rgba(255,255,255,0.95);
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      position: absolute;
-      transition: transform 0.5s ease;
-      font-size: 0.9rem;
-      text-align: center;
-      z-index: 1;
-    }
+.floating-card {
+  width: 200px;
+  background: rgba(255,255,255,0.95);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: absolute;
+  transition: transform 0.5s ease;
+  font-size: 0.9rem;
+  text-align: center;
+  z-index: 1;
+}
 
-    .form-container {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: 4rem auto 2rem;
-      position: relative;
-      z-index: 10;
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-    }
-  </style>
+.form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 4rem auto 2rem;
+  position: relative;
+  z-index: 10;
+}
+.form-container h2::after {
+  content:" (¡Registro gratuito!)";
+  font-size:0.9rem;
+  color:#004aad;
+}
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+</style>
 </head>
 <body>
 
@@ -85,11 +90,7 @@
   </div>
 </header>
 
-<div class="floating-card" style="top:100px; left:5%;">Desarrollador Frontend</div>
-<div class="floating-card" style="top:200px; left:75%;">Auxiliar Administrativo</div>
-<div class="floating-card" style="top:300px; left:15%;">Diseñador Gráfico</div>
-<div class="floating-card" style="top:400px; left:60%;">Analista RRHH</div>
-<div class="floating-card" style="top:150px; left:40%;">Contador Junior</div>
+<div id="floatingVacantesContainer"></div>
 
 <div id="registroCandidato" class="form-container">
   <h2 class="mb-4 text-center">Regístrate como candidato</h2>
@@ -129,24 +130,36 @@
 </footer>
 
 <script>
-  // Verificar sesión al cargar la página
+  // Verificar sesión
   window.addEventListener('load', () => {
     if(localStorage.getItem('sesionActiva') === 'true'){
       window.location.href = 'dashboard.html';
     }
   });
 
-  // Movimiento lento de las tarjetas flotantes
-  const cards = document.querySelectorAll('.floating-card');
-  cards.forEach((card, index) => {
-    let direction = 1;
-    setInterval(() => {
-      const top = parseFloat(card.style.top);
-      if(top >= 450) direction = -1;
-      if(top <= 80) direction = 1;
-      card.style.top = (top + direction) + 'px';
-    }, 50 + index*20);
-  });
+  // Vacantes dinámicas flotantes
+  fetch('vacantes.json')
+    .then(res => res.json())
+    .then(vacantes => {
+      const container = document.getElementById('floatingVacantesContainer');
+      vacantes.forEach((v, index) => {
+        const card = document.createElement('div');
+        card.className = 'floating-card';
+        card.style.top = (100 + index*60) + 'px';
+        card.style.left = (10 + (index*20)%70) + '%';
+        card.innerHTML = `<b>${v.titulo}</b><br>${v.ubicacion}<br>${v.empresa}`;
+        container.appendChild(card);
+
+        // Movimiento lento vertical
+        let direction = 1;
+        setInterval(() => {
+          const top = parseFloat(card.style.top);
+          if(top >= 450) direction = -1;
+          if(top <= 80) direction = 1;
+          card.style.top = (top + direction) + 'px';
+        }, 50 + index*20);
+      });
+    });
 
   // Formulario registro y envío a Formspree
   document.getElementById('formCandidato').addEventListener('submit', function(e){
@@ -177,7 +190,6 @@
       alert('Error de conexión. Intenta más tarde.');
       console.error(err);
     });
-  });
 </script>
 
 </body>
