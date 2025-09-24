@@ -1,0 +1,30 @@
+[
+  {
+    "titulo": "Desarrollador Frontend",
+    "empresa": "TechMX",
+    "ciudad": "CDMX",
+    "sueldo": 15000,
+    "link": "#"
+  },
+  {
+    "titulo": "Auxiliar Administrativo",
+    "empresa": "ABC",
+    "ciudad": "Querétaro",
+    "sueldo": 10000,
+    "link": "#"
+  },
+  {
+    "titulo": "Diseñador Gráfico",
+    "empresa": "LMN",
+    "ciudad": "Guadalajara",
+    "sueldo": 12000,
+    "link": "#"
+  },
+  {
+    "titulo": "Analista de Recursos Humanos",
+    "empresa": "HR Solutions",
+    "ciudad": "Toluca",
+    "sueldo": 12000,
+    "link": "#"
+  }
+]

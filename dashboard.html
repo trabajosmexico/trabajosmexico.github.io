@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - TrabajoHub</title>
+
+  <!-- Fuente Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    body { font-family: 'Poppins', Arial, sans-serif; background: #f2f3f5; }
+
+    /* Header */
+    header { color:white; padding:1rem 2rem; }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(90deg, rgba(0,74,173,0.9), rgba(0,102,255,0.9)), url('https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      color:white;
+      text-align:center;
+      padding:4rem 1rem;
+      border-radius:12px;
+      margin-bottom:2rem;
+    }
+    .hero h2 { font-size:2rem; margin-bottom:1rem; }
+    .hero p { font-size:1.2rem; margin-bottom:2rem; }
+
+    /* Cards de vacantes */
+    .card { border-radius:12px; padding:1.5rem; box-shadow:0 6px 18px rgba(0,0,0,0.08); transition:0.3s; background:white; border:none; position:relative; }
+    .card:hover { box-shadow:0 12px 28px rgba(0,0,0,0.15); transform:translateY(-5px); }
+    .card h5 { font-weight:600; font-size:1.2rem; }
+    .card p { color:#555; margin-bottom:0.3rem; }
+    .card .btn { margin-top:0.5rem; border-radius:8px; font-size:1rem; }
+    .btn-primary { background:#004aad; color:white; border:none; }
+    .btn-primary:hover { background:#003080; }
+    .btn-outline-primary { border:1px solid #004aad; color:#004aad; background:white; }
+    .btn-outline-primary:hover { background:#004aad; color:white; }
+
+    /* Ribbon nueva */
+    .ribbon {
+      width: 70px;
+      height: 25px;
+      background: #ff5050;
+      color:white;
+      text-align:center;
+      line-height:25px;
+      position:absolute;
+      top:10px;
+      right:-10px;
+      transform: rotate(45deg);
+      font-size:0.8rem;
+      font-weight:600;
+    }
+
+    /* Filtros */
+    .filtros { margin-bottom:2rem; padding:1rem; background:white; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.05); display:flex; gap:1rem; flex-wrap:wrap; align-items:center; }
+
+    /* Sección categorías */
+    .categorias { margin-bottom:2rem; }
+    .categoria-card { border-radius:12px; padding:2rem; text-align:center; background:white; box-shadow:0 6px 18px rgba(0,0,0,0.05); cursor:pointer; transition:0.3s; }
+    .categoria-card:hover { box-shadow:0 12px 28px rgba(0,0,0,0.12); transform:translateY(-5px); }
+
+    /* Favoritos */
+    .favoritos-container { margin-top:2rem; }
+    .favoritos-container h3 { margin-bottom:1rem; }
+
+    /* Footer */
+    footer { background:#222; color:white; text-align:center; padding:2rem 1rem; font-size:0.9rem; margin-top:2rem; }
+    footer a { color:#fff; text-decoration:none; margin:0 0.5rem; }
+    footer a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+<header class="d-flex justify-content-between align-items-center" style="background: linear-gradient(90deg, #004aad, #0066ff);">
+  <div>
+    <h1 class="mb-0" style="font-size:1.8rem;">TrabajoHub Dashboard</h1>
+    <p id="saludo" class="mb-0">Hola, Usuario!</p>
+  </div>
+  
+  <div class="dropdown">
+    <button class="btn btn-light dropdown-toggle" type="button" id="menuUsuario" data-bs-toggle="dropdown" aria-expanded="false">
+      Mi cuenta
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuUsuario">
+      <li><a class="dropdown-item" href="#" id="misPostulaciones">Mis postulaciones</a></li>
+      <li><a class="dropdown-item" href="#" id="verFavoritos">Ver favoritos</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item text-danger" href="#" id="cerrarSesion">Cerrar sesión</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- Hero Banner -->
+<div class="hero">
+  <h2>Encuentra tu empleo ideal en México</h2>
+  <p>Regístrate y postúlate a vacantes en empresas confiables</p>
+  <a href="#contenedor-vacantes" class="btn btn-primary">Ver Vacantes</a>
+</div>
+
+<div class="container my-5">
+
+  <!-- Sección categorías -->
+  <h3 class="mb-3">Explora por categoría</h3>
+  <div class="row categorias g-4">
+    <div class="col-md-3"><div class="categoria-card"><i class="bi bi-code-slash" style="font-size:2rem;"></i><p>IT</p></div></div>
+    <div class="col-md-3"><div class="categoria-card"><i class="bi bi-bar-chart-line" style="font-size:2rem;"></i><p>Marketing</p></div></div>
+    <div class="col-md-3"><div class="categoria-card"><i class="bi bi-people" style="font-size:2rem;"></i><p>Recursos Humanos</p></div></div>
+    <div class="col-md-3"><div class="categoria-card"><i class="bi bi-palette" style="font-size:2rem;"></i><p>Diseño</p></div></div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <div>
+      <label>Ciudad:</label>
+      <select id="filtro-ciudad">
+        <option value="Todos">Todos</option>
+        <option>CDMX</option>
+        <option>Toluca</option>
+        <option>Querétaro</option>
+        <option>Guadalajara</option>
+        <option>Monterrey</option>
+        <option>Puebla</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div>
+      <label>Rango salarial:</label>
+      <select id="filtro-sueldo">
+        <option value="Todos">Todos</option>
+        <option value="10000">Hasta $10,000</option>
+        <option value="12000">Hasta $12,000</option>
+        <option value="15000">Hasta $15,000</option>
+        <option value="20000">Hasta $20,000</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Vacantes -->
+  <div class="row g-4" id="contenedor-vacantes"></div>
+
+  <!-- Favoritos -->
+  <div class="favoritos-container" id="contenedor-favoritos" style="display:none;">
+    <h3>Mis Vacantes Favoritas</h3>
+    <div class="row g-4" id="favoritos-lista"></div>
+  </div>
+
+</div>
+
+<!-- Modal vacante -->
+<div class="modal fade" id="modalVacante" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitulo">Vacante</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="modalDescripcion">
+      </div>
+      <div class="modal-footer">
+        <a href="#" target="_blank" id="modalLink" class="btn btn-primary">Aplicar</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 TrabajoHub | 
+  <a href="#">Aviso de privacidad</a> | 
+  <a href="#">Contacto</a> | 
+  <a href="#">Ayuda</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Validar usuario
+const usuario = JSON.parse(localStorage.getItem("usuarioRegistrado"));
+if(!usuario){ window.location.href = "index.html"; }
+else { document.getElementById("saludo").innerText = `Hola, ${usuario.nombre}!`; }
+
+// Cerrar sesión
+document.getElementById("cerrarSesion").addEventListener("click", function(){
+  localStorage.removeItem("usuarioRegistrado");
+  window.location.href = "index.html";
+});
+document.getElementById("misPostulaciones").addEventListener("click", function(){
+  alert("Aquí se mostrarán tus postulaciones (próximamente).");
+});
+
+// Cargar vacantes
+const contenedor = document.getElementById("contenedor-vacantes");
+const filtroCiudad = document.getElementById("filtro-ciudad");
+const filtroSueldo = document.getElementById("filtro-sueldo");
+let vacantesData = [];
+
+fetch('vacantes.json')
+  .then(r => r.json())
+  .then(data => {
+    vacantesData = data;
+    mostrarVacantes(data);
+    mostrarFavoritos();
+  });
+
+function mostrarVacantes(data){
+  contenedor.innerHTML = '';
+  data.forEach(v => {
+    const col = document.createElement("div");
+    col.classList.add("col-md-4","tarjeta-vacante");
+    col.setAttribute("data-ciudad", v.ciudad);
+    col.setAttribute("data-sueldo", v.sueldo);
+    col.innerHTML = `
+      <div class="card p-4">
+        <div class="ribbon">Nueva</div>
+        <h5>${v.titulo}</h5>
+        <p><i class="bi bi-building"></i> ${v.empresa}</p>
+        <p><i class="bi bi-geo-alt"></i> ${v.ciudad}</p>
+        <p><i class="bi bi-currency-dollar"></i> $${v.sueldo}/mes</p>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary btn-ver" data-titulo="${v.titulo}" data-descripcion="${v.descripcion}" data-link="${v.link}">Ver más</button>
+          <button class="btn btn-outline-primary btn-favorito" data-titulo="${v.titulo}">♡</button>
+        </div>
+      </div>
+    `;
+    contenedor.appendChild(col);
+  });
+  filtrarVacantes();
+  configurarVerMas();
+}
+
+// Favoritos
+function mostrarFavoritos(){
+  const favoritos = JSON.parse(localStorage.getItem("favoritos") || "[]");
+  const cont = document.getElementById("favoritos-lista");
+  cont.innerHTML = '';
+  favoritos.forEach(f => {
+    const div = document.createElement("div");
+    div.classList.add("col-md-4");
+    div.innerHTML = `<div class="card p-4"><h5>${f}</h5></div>`;
+    cont.appendChild(div);
+  });
+}
+
+// Filtros
+function filtrarVacantes(){
+  const ciudad = filtroCiudad.value;
+  const sueldo = filtroSueldo.value;
+  document.querySelectorAll('.tarjeta-vacante').forEach(card=>{
+    const mostrar = (ciudad==='Todos' || card.dataset.ciudad===ciudad) && 
+                    (sueldo==='Todos' || parseInt(card.dataset.sueldo)<=parseInt(sueldo));
+    card.style.display = mostrar?"block":"none";
+  });
+}
+filtroCiudad.addEventListener("change",filtrarVacantes);
+filtroSueldo.addEventListener("change",filtrarVacantes);
+
+// Configurar modal "Ver más"
+function configurarVerMas(){
+  document.querySelectorAll('.btn-ver').forEach(btn=>{
+    btn.addEventListener("click", function(){
+      document.getElementById("modalTitulo").innerText = this.dataset.titulo;
+      document.getElementById("modalDescripcion").innerText = this.dataset.descripcion;
+      document.getElementById("modalLink").href = this.dataset.link;
+      new bootstrap.Modal(document.getElementById("modalVacante")).show();
+    });
+  });
+}
+
+// Favoritos
+document.addEventListener("click", function(e){
+  if(e.target.classList.contains("btn-favorito")){
+    let favoritos = JSON.parse(localStorage.getItem("favoritos") || "[]");
+    const titulo = e.target.dataset.titulo;
+    if(!favoritos.includes(titulo)) favoritos.push(titulo);
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    mostrarFavoritos();
+  }
+});
+</script>
+
+</body>
+</html>
