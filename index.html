@@ -11,6 +11,8 @@
     body {
       font-family: 'Poppins', Arial, sans-serif;
       background: #f2f3f5;
+      position: relative;
+      overflow-x: hidden;
     }
     header {
       background: linear-gradient(90deg, #004aad, #0066ff);
@@ -41,15 +43,20 @@
     .btn-empresa:hover { background: #e6b800; }
     .btn-candidato:hover { background: #f0f0f0; }
 
+    /* Recuadros flotantes estilo dashboard */
     .floating-card {
-      width: 220px;
-      background: white;
+      width: 180px;
+      background: rgba(255,255,255,0.95);
       padding: 1rem;
       border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       position: absolute;
       transition: transform 0.5s ease;
+      font-size: 0.9rem;
+      text-align: center;
+      z-index: 1;
     }
+
     .form-container {
       background: white;
       padding: 2rem;
@@ -57,6 +64,8 @@
       box-shadow: 0 6px 25px rgba(0,0,0,0.1);
       max-width: 600px;
       margin: 4rem auto 2rem;
+      position: relative;
+      z-index: 10; /* para que esté sobre las vacantes flotantes */
     }
     footer {
       background: #222;
@@ -77,10 +86,12 @@
   </div>
 </header>
 
-<!-- Floating Vacantes de ejemplo -->
-<div class="floating-card" style="top:120px; left:10%;">Desarrollador Frontend</div>
-<div class="floating-card" style="top:220px; left:70%;">Auxiliar Administrativo</div>
-<div class="floating-card" style="top:350px; left:40%;">Diseñador Gráfico</div>
+<!-- Floating Vacantes estilo dashboard -->
+<div class="floating-card" style="top:100px; left:5%;">Desarrollador Frontend</div>
+<div class="floating-card" style="top:200px; left:75%;">Auxiliar Administrativo</div>
+<div class="floating-card" style="top:300px; left:15%;">Diseñador Gráfico</div>
+<div class="floating-card" style="top:400px; left:60%;">Analista RRHH</div>
+<div class="floating-card" style="top:150px; left:40%;">Contador Junior</div>
 
 <!-- Formulario de registro -->
 <div id="registroCandidato" class="form-container">
@@ -127,10 +138,10 @@
     let direction = 1;
     setInterval(() => {
       const top = parseFloat(card.style.top);
-      if(top >= 400) direction = -1;
-      if(top <= 100) direction = 1;
+      if(top >= 450) direction = -1;
+      if(top <= 80) direction = 1;
       card.style.top = (top + direction) + 'px';
-    }, 50 + index*10);
+    }, 50 + index*20);
   });
 
   // Formulario registro y envío a Formspree
