@@ -55,6 +55,33 @@ header h1 { margin-bottom: 0.5rem; }
   color:#004aad;
 }
 
+/* Recuadro elegante registro exitoso */
+#registroExitoso {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #004aad;
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 1000;
+}
+#registroExitoso button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #ffcc00;
+  color: #004aad;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#registroExitoso button:hover { background: #e6b800; }
+
 footer {
   background: #222;
   color: white;
@@ -107,6 +134,13 @@ footer {
   </form>
 </div>
 
+<!-- Recuadro elegante de registro exitoso -->
+<div id="registroExitoso">
+  <h3>¡Registro exitoso!</h3>
+  <p>Ahora serás redirigido al dashboard.</p>
+  <button onclick="cerrarExito()">Cerrar</button>
+</div>
+
 <footer>
   &copy; 2025 Trabajos México - Todos los derechos reservados
 </footer>
@@ -118,6 +152,14 @@ footer {
       window.location.href = 'dashboard.html';
     }
   });
+
+  function mostrarExito(){
+    document.getElementById('registroExitoso').style.display = 'block';
+  }
+  function cerrarExito(){
+    document.getElementById('registroExitoso').style.display = 'none';
+    window.location.href = 'dashboard.html';
+  }
 
   // Formulario registro y envío a Formspree
   document.getElementById('formCandidato').addEventListener('submit', function(e){
@@ -138,8 +180,7 @@ footer {
     })
     .then(response => {
       if(response.ok){
-        alert('¡Registro exitoso! Ahora serás redirigido al dashboard.');
-        window.location.href = 'dashboard.html';
+        mostrarExito();
       } else {
         alert('Hubo un error al enviar los datos. Intenta nuevamente.');
       }
