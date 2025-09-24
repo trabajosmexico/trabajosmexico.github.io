@@ -43,7 +43,6 @@
     .btn-empresa:hover { background: #e6b800; }
     .btn-candidato:hover { background: #f0f0f0; }
 
-    /* Recuadros flotantes estilo dashboard */
     .floating-card {
       width: 180px;
       background: rgba(255,255,255,0.95);
@@ -65,7 +64,7 @@
       max-width: 600px;
       margin: 4rem auto 2rem;
       position: relative;
-      z-index: 10; /* para que esté sobre las vacantes flotantes */
+      z-index: 10;
     }
     footer {
       background: #222;
@@ -86,14 +85,12 @@
   </div>
 </header>
 
-<!-- Floating Vacantes estilo dashboard -->
 <div class="floating-card" style="top:100px; left:5%;">Desarrollador Frontend</div>
 <div class="floating-card" style="top:200px; left:75%;">Auxiliar Administrativo</div>
 <div class="floating-card" style="top:300px; left:15%;">Diseñador Gráfico</div>
 <div class="floating-card" style="top:400px; left:60%;">Analista RRHH</div>
 <div class="floating-card" style="top:150px; left:40%;">Contador Junior</div>
 
-<!-- Formulario de registro -->
 <div id="registroCandidato" class="form-container">
   <h2 class="mb-4 text-center">Regístrate como candidato</h2>
   <form id="formCandidato">
@@ -132,6 +129,13 @@
 </footer>
 
 <script>
+  // Verificar sesión al cargar la página
+  window.addEventListener('load', () => {
+    if(localStorage.getItem('sesionActiva') === 'true'){
+      window.location.href = 'dashboard.html';
+    }
+  });
+
   // Movimiento lento de las tarjetas flotantes
   const cards = document.querySelectorAll('.floating-card');
   cards.forEach((card, index) => {
@@ -151,8 +155,9 @@
     const data = {};
     formData.forEach((value,key) => data[key] = value);
 
-    // Guardar en localStorage
+    // Guardar en localStorage y marcar sesión activa
     localStorage.setItem('candidato', JSON.stringify(data));
+    localStorage.setItem('sesionActiva', 'true');
 
     // Enviar a Formspree
     fetch('https://formspree.io/f/mblzjvbn', {
@@ -163,7 +168,7 @@
     .then(response => {
       if(response.ok){
         alert('¡Registro exitoso! Ahora serás redirigido al dashboard.');
-        window.location.href = 'dashboard.html'; // Redirige al dashboard
+        window.location.href = 'dashboard.html';
       } else {
         alert('Hubo un error al enviar los datos. Intenta nuevamente.');
       }
