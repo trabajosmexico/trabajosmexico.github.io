@@ -11,8 +11,6 @@
 body {
   font-family: 'Poppins', Arial, sans-serif;
   background: linear-gradient(120deg,#f0f4ff,#f2f3f5);
-  position: relative;
-  overflow-x: hidden;
 }
 header {
   background: linear-gradient(90deg, #004aad, #0066ff);
@@ -43,19 +41,6 @@ header h1 { margin-bottom: 0.5rem; }
 .btn-empresa:hover { background: #e6b800; }
 .btn-candidato:hover { background: #f0f0f0; }
 
-.floating-card {
-  width: 200px;
-  background: rgba(255,255,255,0.95);
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  position: absolute;
-  transition: transform 0.5s ease;
-  font-size: 0.9rem;
-  text-align: center;
-  z-index: 1;
-}
-
 .form-container {
   background: white;
   padding: 2rem;
@@ -63,14 +48,13 @@ header h1 { margin-bottom: 0.5rem; }
   box-shadow: 0 6px 25px rgba(0,0,0,0.1);
   max-width: 600px;
   margin: 4rem auto 2rem;
-  position: relative;
-  z-index: 10;
 }
 .form-container h2::after {
   content:" (¡Registro gratuito!)";
   font-size:0.9rem;
   color:#004aad;
 }
+
 footer {
   background: #222;
   color: white;
@@ -89,8 +73,6 @@ footer {
     <button class="btn-candidato" onclick="document.getElementById('registroCandidato').scrollIntoView({behavior:'smooth'})">Registro Candidatos</button>
   </div>
 </header>
-
-<div id="floatingVacantesContainer"></div>
 
 <div id="registroCandidato" class="form-container">
   <h2 class="mb-4 text-center">Regístrate como candidato</h2>
@@ -137,30 +119,6 @@ footer {
     }
   });
 
-  // Vacantes dinámicas flotantes
-  fetch('vacantes.json')
-    .then(res => res.json())
-    .then(vacantes => {
-      const container = document.getElementById('floatingVacantesContainer');
-      vacantes.forEach((v, index) => {
-        const card = document.createElement('div');
-        card.className = 'floating-card';
-        card.style.top = (100 + index*60) + 'px';
-        card.style.left = (10 + (index*20)%70) + '%';
-        card.innerHTML = `<b>${v.titulo}</b><br>${v.ubicacion}<br>${v.empresa}`;
-        container.appendChild(card);
-
-        // Movimiento lento vertical
-        let direction = 1;
-        setInterval(() => {
-          const top = parseFloat(card.style.top);
-          if(top >= 450) direction = -1;
-          if(top <= 80) direction = 1;
-          card.style.top = (top + direction) + 'px';
-        }, 50 + index*20);
-      });
-    });
-
   // Formulario registro y envío a Formspree
   document.getElementById('formCandidato').addEventListener('submit', function(e){
     e.preventDefault();
@@ -190,6 +148,7 @@ footer {
       alert('Error de conexión. Intenta más tarde.');
       console.error(err);
     });
+  });
 </script>
 
 </body>
