@@ -6,31 +6,51 @@
   <title>Trabajos México</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    /* Animación flotante */
-    @keyframes flotar {
+    /* Animaciones flotantes en varias direcciones */
+    @keyframes flotar1 {
       0% { transform: translateY(0) translateX(0); }
       50% { transform: translateY(-20px) translateX(15px); }
       100% { transform: translateY(0) translateX(0); }
     }
-    .flotante {
-      animation: flotar 6s ease-in-out infinite;
+    @keyframes flotar2 {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(20px) translateX(-15px); }
+      100% { transform: translateY(0) translateX(0); }
     }
-    .flotante:nth-child(2) { animation-delay: 1s; }
-    .flotante:nth-child(3) { animation-delay: 2s; }
-    .flotante:nth-child(4) { animation-delay: 3s; }
+    @keyframes flotar3 {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-15px) translateX(-20px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+    .flotante:nth-child(1) { animation: flotar1 6s ease-in-out infinite; }
+    .flotante:nth-child(2) { animation: flotar2 7s ease-in-out infinite; }
+    .flotante:nth-child(3) { animation: flotar3 8s ease-in-out infinite; }
+    .flotante:nth-child(4) { animation: flotar2 6s ease-in-out infinite; }
   </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gradient-to-br from-gray-100 via-white to-gray-200 font-sans min-h-screen">
 
   <!-- Encabezado -->
-  <header class="bg-blue-800 text-white shadow">
+  <header class="bg-blue-900 text-white shadow">
     <div class="max-w-6xl mx-auto p-5 flex justify-between items-center">
       <h1 class="text-2xl font-bold">💼 Trabajos México</h1>
-      <a href="#registro" class="bg-white text-blue-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">
-        Registrarse
-      </a>
+      <div class="flex gap-4">
+        <a href="#registro" class="bg-white text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">
+          Registro Gratis
+        </a>
+        <a href="#registro-empresas" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500">
+          Registro Empresas
+        </a>
+      </div>
     </div>
   </header>
+
+  <!-- Hero -->
+  <section class="text-center py-16 bg-gradient-to-r from-blue-800 to-blue-600 text-white shadow-lg">
+    <h2 class="text-4xl font-bold mb-4">Encuentra tu empleo ideal en México</h2>
+    <p class="text-lg mb-6">El registro es <span class="font-bold">100% gratuito</span> para candidatos y empresas.</p>
+    <a href="#registro" class="bg-white text-blue-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">¡Regístrate Gratis!</a>
+  </section>
 
   <!-- Sección de vacantes -->
   <main class="relative max-w-6xl mx-auto mt-10 p-5 min-h-[500px]">
@@ -51,9 +71,9 @@
     </div>
   </div>
 
-  <!-- Formulario de Registro -->
+  <!-- Formulario de Registro Candidatos -->
   <section id="registro" class="bg-white shadow-lg rounded-lg max-w-lg mx-auto mt-20 p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Candidatos</h2>
     <form id="registroForm" class="space-y-5">
       <input type="text" placeholder="Nombre completo" class="w-full p-3 border rounded-lg" required>
       <input type="email" placeholder="Correo electrónico" class="w-full p-3 border rounded-lg" required>
@@ -65,7 +85,25 @@
         <span>Al registrarme acepto que mis datos serán utilizados con fines de reclutamiento.</span>
       </label>
 
-      <button type="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg font-semibold hover:bg-blue-900">Registrarse</button>
+      <button type="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg font-semibold hover:bg-blue-900">Registrarse Gratis</button>
+    </form>
+  </section>
+
+  <!-- Formulario de Registro Empresas -->
+  <section id="registro-empresas" class="bg-white shadow-lg rounded-lg max-w-lg mx-auto mt-20 p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Empresas</h2>
+    <form id="registroEmpresasForm" class="space-y-5">
+      <input type="text" placeholder="Nombre de la empresa" class="w-full p-3 border rounded-lg" required>
+      <input type="email" placeholder="Correo electrónico de contacto" class="w-full p-3 border rounded-lg" required>
+      <input type="password" placeholder="Contraseña" class="w-full p-3 border rounded-lg" required>
+      
+      <!-- Checkbox obligatorio -->
+      <label class="flex items-start space-x-2 text-sm text-gray-600">
+        <input type="checkbox" id="aceptoTerminosEmpresas" required class="mt-1">
+        <span>Al registrarme acepto que los datos serán utilizados con fines de publicación de empleos.</span>
+      </label>
+
+      <button type="submit" class="w-full bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600">Registrarse Gratis</button>
     </form>
   </section>
 
@@ -102,13 +140,23 @@
       document.getElementById("registroModal").classList.remove("flex");
     }
 
-    // Validación de registro
+    // Validación de registro candidatos
     document.getElementById("registroForm").addEventListener("submit", function(e){
       if(!document.getElementById("aceptoTerminos").checked){
         e.preventDefault();
         alert("Debes aceptar los términos antes de registrarte.");
       } else {
-        alert("Registro exitoso 🎉");
+        alert("Registro exitoso 🎉 (Candidato)");
+      }
+    });
+
+    // Validación de registro empresas
+    document.getElementById("registroEmpresasForm").addEventListener("submit", function(e){
+      if(!document.getElementById("aceptoTerminosEmpresas").checked){
+        e.preventDefault();
+        alert("Debes aceptar los términos antes de registrarte.");
+      } else {
+        alert("Registro exitoso 🎉 (Empresa)");
       }
     });
   </script>
