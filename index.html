@@ -4,146 +4,165 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trabajos México</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
-    /* Animaciones flotantes en varias direcciones */
-    @keyframes flotar1 {
-      0% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-20px) translateX(15px); }
-      100% { transform: translateY(0) translateX(0); }
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: #f2f3f5;
     }
-    @keyframes flotar2 {
-      0% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(20px) translateX(-15px); }
-      100% { transform: translateY(0) translateX(0); }
+    header {
+      background: linear-gradient(90deg, #004aad, #0066ff);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      position: relative;
     }
-    @keyframes flotar3 {
-      0% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-15px) translateX(-20px); }
-      100% { transform: translateY(0) translateX(0); }
+    header h1 { margin-bottom: 0.5rem; }
+    .header-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
     }
-    .flotante:nth-child(1) { animation: flotar1 6s ease-in-out infinite; }
-    .flotante:nth-child(2) { animation: flotar2 7s ease-in-out infinite; }
-    .flotante:nth-child(3) { animation: flotar3 8s ease-in-out infinite; }
-    .flotante:nth-child(4) { animation: flotar2 6s ease-in-out infinite; }
+    .header-buttons button {
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-empresa { background: #ffcc00; color: #004aad; }
+    .btn-candidato { background: #ffffff; color: #004aad; }
+    .btn-empresa:hover { background: #e6b800; }
+    .btn-candidato:hover { background: #f0f0f0; }
+
+    .floating-card {
+      width: 220px;
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      position: absolute;
+      transition: transform 0.5s ease;
+    }
+    .form-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 4rem auto 2rem;
+    }
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-gray-100 via-white to-gray-200 font-sans min-h-screen">
+<body>
 
-  <!-- Encabezado -->
-  <header class="bg-blue-900 text-white shadow">
-    <div class="max-w-6xl mx-auto p-5 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">💼 Trabajos México</h1>
-      <div class="flex gap-4">
-        <a href="#registro" class="bg-white text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">
-          Registro Gratis
-        </a>
-        <a href="registro_empresa.html" class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500">
-          Registro Empresas
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="text-center py-16 bg-gradient-to-r from-blue-800 to-blue-600 text-white shadow-lg">
-    <h2 class="text-4xl font-bold mb-4">Encuentra tu empleo ideal en México</h2>
-    <p class="text-lg mb-6">El registro es <span class="font-bold">100% gratuito</span> para candidatos y empresas.</p>
-    <a href="#registro" class="bg-white text-blue-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200">¡Regístrate Gratis!</a>
-  </section>
-
-  <!-- Sección de vacantes -->
-  <main class="relative max-w-6xl mx-auto mt-10 p-5 min-h-[500px]">
-    <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Vacantes disponibles</h2>
-    
-    <div class="flex flex-wrap justify-center gap-6" id="vacantes-container">
-      <!-- Vacantes se cargan aquí -->
-    </div>
-  </main>
-
-  <!-- Modal elegante -->
-  <div id="registroModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-lg shadow-xl p-8 w-96 text-center">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">Registro requerido</h3>
-      <p class="text-gray-600 mb-6">Debes registrarte para ver los detalles de esta vacante.</p>
-      <a href="#registro" onclick="cerrarModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Ir al registro</a>
-      <button onclick="cerrarModal()" class="ml-3 text-gray-600 hover:underline">Cancelar</button>
-    </div>
+<header>
+  <h1>Trabajos México</h1>
+  <p>Encuentra tu próximo empleo en México</p>
+  <div class="header-buttons">
+    <button class="btn-empresa" onclick="location.href='registro_empresa.html'">Registro Empresas</button>
+    <button class="btn-candidato" onclick="document.getElementById('registroCandidato').scrollIntoView({behavior:'smooth'})">Registro Candidatos</button>
   </div>
+</header>
 
-  <!-- Formulario de Registro Candidatos -->
-  <section id="registro" class="bg-white shadow-lg rounded-lg max-w-lg mx-auto mt-20 p-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Candidatos</h2>
-    <form id="registroForm" class="space-y-5">
-      <input type="text" placeholder="Nombre completo" class="w-full p-3 border rounded-lg" required>
-      <input type="email" placeholder="Correo electrónico" class="w-full p-3 border rounded-lg" required>
-      <input type="password" placeholder="Contraseña" class="w-full p-3 border rounded-lg" required>
-      
-      <!-- Checkbox obligatorio -->
-      <label class="flex items-start space-x-2 text-sm text-gray-600">
-        <input type="checkbox" id="aceptoTerminos" required class="mt-1">
-        <span>Al registrarme acepto que mis datos serán utilizados con fines de reclutamiento.</span>
-      </label>
+<!-- Floating Vacantes de ejemplo -->
+<div class="floating-card" style="top:120px; left:10%;">Desarrollador Frontend</div>
+<div class="floating-card" style="top:220px; left:70%;">Auxiliar Administrativo</div>
+<div class="floating-card" style="top:350px; left:40%;">Diseñador Gráfico</div>
 
-      <button type="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg font-semibold hover:bg-blue-900">Registrarse Gratis</button>
-    </form>
-  </section>
+<!-- Formulario de registro -->
+<div id="registroCandidato" class="form-container">
+  <h2 class="mb-4 text-center">Regístrate como candidato</h2>
+  <form id="formCandidato">
+    <label>Nombre completo:</label>
+    <input type="text" name="nombre" class="form-control mb-2" required>
 
-  <script>
-    // Vacantes simuladas
-    const vacantes = [
-      { id: 1, titulo: "Auxiliar Administrativo", empresa: "Empresa XYZ", ubicacion: "CDMX" },
-      { id: 2, titulo: "Reclutador Jr.", empresa: "Consultora ABC", ubicacion: "Guadalajara" },
-      { id: 3, titulo: "Capturista Digital", empresa: "Servicios LMN", ubicacion: "Monterrey" },
-      { id: 4, titulo: "Asistente de RRHH", empresa: "Grupo DEF", ubicacion: "Querétaro" },
-    ];
+    <label>Correo electrónico:</label>
+    <input type="email" name="email" class="form-control mb-2" required>
 
-    // Render vacantes
-    const contenedor = document.getElementById("vacantes-container");
-    vacantes.forEach(v => {
-      const card = document.createElement("div");
-      card.className = "flotante bg-white shadow-lg rounded-lg p-5 w-64 hover:shadow-2xl transition transform hover:scale-105";
-      card.innerHTML = `
-        <h3 class="text-lg font-bold text-gray-800">${v.titulo}</h3>
-        <p class="text-sm text-gray-600">${v.empresa}</p>
-        <p class="text-sm text-gray-500">${v.ubicacion}</p>
-        <button onclick="abrirModal()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">Ver detalles</button>
-      `;
-      contenedor.appendChild(card);
-    });
+    <label>Teléfono:</label>
+    <input type="tel" name="telefono" class="form-control mb-2" required>
 
-    function abrirModal() {
-      document.getElementById("registroModal").classList.remove("hidden");
-      document.getElementById("registroModal").classList.add("flex");
-    }
-    function cerrarModal() {
-      document.getElementById("registroModal").classList.add("hidden");
-      document.getElementById("registroModal").classList.remove("flex");
-    }
+    <label>Ubicación:</label>
+    <select name="ubicacion" class="form-control mb-3" required>
+      <option value="">Selecciona tu ciudad</option>
+      <option>CDMX</option>
+      <option>Toluca</option>
+      <option>Querétaro</option>
+      <option>Guadalajara</option>
+      <option>Monterrey</option>
+      <option>Puebla</option>
+      <option>Otro</option>
+    </select>
 
-    // Validación de registro candidatos
-    document.getElementById("registroForm").addEventListener("submit", function(e){
-      if(!document.getElementById("aceptoTerminos").checked){
-        e.preventDefault();
-        alert("Debes aceptar los términos antes de registrarte.");
-      } else {
-        alert("Registro exitoso 🎉 (Candidato)");
-      }
-    });
-  </script>
-
-<footer class="bg-gray-900 text-white mt-12 py-8">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-5">
-    
-    <p class="text-sm mb-4 md:mb-0">&copy; 2025 Trabajos México - Todos los derechos reservados</p>
-    
-    <div class="flex gap-6 text-sm">
-      <a href="contacto.html" class="hover:text-yellow-400 transition">Contacto</a>
-      <a href="aviso_privacidad.html" class="hover:text-yellow-400 transition">Aviso de Privacidad</a>
-      <a href="terminos.html" class="hover:text-yellow-400 transition">Términos y Condiciones</a>
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="acepto" required>
+      <label class="form-check-label">Acepto que mis datos sean tratados con fines de reclutamiento y selección</label>
     </div>
-  </div>
+
+    <button type="submit" class="btn btn-primary w-100">Enviar y Registrar</button>
+  </form>
+</div>
+
+<footer>
+  &copy; 2025 Trabajos México - Todos los derechos reservados
 </footer>
+
+<script>
+  // Movimiento lento de las tarjetas flotantes
+  const cards = document.querySelectorAll('.floating-card');
+  cards.forEach((card, index) => {
+    let direction = 1;
+    setInterval(() => {
+      const top = parseFloat(card.style.top);
+      if(top >= 400) direction = -1;
+      if(top <= 100) direction = 1;
+      card.style.top = (top + direction) + 'px';
+    }, 50 + index*10);
+  });
+
+  // Formulario registro y envío a Formspree
+  document.getElementById('formCandidato').addEventListener('submit', function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = {};
+    formData.forEach((value,key) => data[key] = value);
+
+    // Guardar en localStorage
+    localStorage.setItem('candidato', JSON.stringify(data));
+
+    // Enviar a Formspree
+    fetch('https://formspree.io/f/mblzjvbn', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    })
+    .then(response => {
+      if(response.ok){
+        alert('¡Registro exitoso! Ahora serás redirigido al dashboard.');
+        window.location.href = 'dashboard.html'; // Redirige al dashboard
+      } else {
+        alert('Hubo un error al enviar los datos. Intenta nuevamente.');
+      }
+    })
+    .catch(err => {
+      alert('Error de conexión. Intenta más tarde.');
+      console.error(err);
+    });
+  });
+</script>
 
 </body>
 </html>
