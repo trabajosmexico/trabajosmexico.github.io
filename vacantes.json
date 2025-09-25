@@ -1,82 +1,56 @@
 [
   {
-    "titulo": "Analista de Recursos Humanos",
-    "ubicacion": "Ciudad de México",
-    "sueldo": "$15,000 - $18,000 MXN",
-    "empresa": "Grupo Empresarial Orion",
-    "etiqueta": "Urgente",
-    "descripcion": "Estamos buscando un Analista de Recursos Humanos con experiencia en reclutamiento y selección. Será responsable de la administración de personal, atención a incidencias y apoyo en planes de desarrollo organizacional.",
+    "titulo": "Auxiliar Administrativo",
+    "empresa": "Grupo Empresarial MX",
+    "ubicacion": "CDMX, México",
+    "sueldo": "$8,000 - $10,000 MXN",
+    "descripcion": "Buscamos un auxiliar administrativo para apoyo en actividades de oficina, control de documentos y atención a clientes internos.",
     "requisitos": [
-      "Licenciatura en Psicología, Administración o afín",
-      "Mínimo 2 años de experiencia en el área de RH",
-      "Conocimientos en nóminas y LFT",
-      "Manejo de entrevistas por competencias"
-    ],
-    "prestaciones": [
-      "Prestaciones de ley desde el primer día",
-      "Seguro de gastos médicos menores",
-      "Vales de despensa",
-      "Días adicionales de vacaciones"
-    ]
-  },
-  {
-    "titulo": "Desarrollador Full Stack",
-    "ubicacion": "Querétaro",
-    "sueldo": "$28,000 - $35,000 MXN",
-    "empresa": "Tech Solutions MX",
-    "etiqueta": "Nuevo",
-    "descripcion": "Empresa de tecnología busca Full Stack Developer para proyectos nacionales e internacionales. Participarás en el desarrollo de aplicaciones web y móviles con metodologías ágiles.",
-    "requisitos": [
-      "3+ años de experiencia en desarrollo web",
-      "Conocimientos sólidos en JavaScript, React y Node.js",
-      "Manejo de bases de datos SQL y NoSQL",
-      "Inglés intermedio-avanzado"
-    ],
-    "prestaciones": [
-      "Home office 3 días a la semana",
-      "Seguro de vida",
-      "Capacitaciones constantes",
-      "Bono de desempeño trimestral"
-    ]
-  },
-  {
-    "titulo": "Ejecutivo de Ventas Corporativas",
-    "ubicacion": "Monterrey, Nuevo León",
-    "sueldo": "$20,000 MXN + comisiones",
-    "empresa": "Comercializadora Nova",
-    "etiqueta": "Destacado",
-    "descripcion": "Buscamos un Ejecutivo de Ventas Corporativas para ampliar cartera de clientes y gestionar relaciones comerciales estratégicas. Trabajo 100% en campo con visitas a clientes corporativos.",
-    "requisitos": [
-      "Licenciatura en Administración, Mercadotecnia o afín",
-      "2 años de experiencia en ventas B2B",
-      "Disponibilidad para viajar",
-      "Habilidades de negociación"
-    ],
-    "prestaciones": [
-      "Vehículo de la empresa",
-      "Gasolina y viáticos pagados",
-      "Seguro de gastos médicos mayores",
-      "Plan de crecimiento profesional"
-    ]
-  },
-  {
-    "titulo": "Auxiliar Contable",
-    "ubicacion": "Guadalajara, Jalisco",
-    "sueldo": "$12,000 - $14,000 MXN",
-    "empresa": "Finanzas Integrales SA",
-    "etiqueta": "",
-    "descripcion": "Firma contable busca Auxiliar Contable para registro de pólizas, conciliaciones bancarias y apoyo en declaraciones mensuales. Se ofrece estabilidad laboral y oportunidad de crecimiento.",
-    "requisitos": [
-      "Licenciatura en Contaduría (trunca o concluida)",
-      "Manejo de Excel intermedio",
-      "Experiencia mínima de 1 año",
-      "Disponibilidad para horario de oficina"
+      "Bachillerato concluido",
+      "Manejo de paquetería Office",
+      "Disponibilidad inmediata"
     ],
     "prestaciones": [
       "Prestaciones de ley",
-      "Caja de ahorro",
-      "Capacitaciones constantes",
-      "Oportunidad de crecimiento interno"
-    ]
+      "Vales de despensa",
+      "Oportunidad de crecimiento"
+    ],
+    "etiqueta": "Urgente"
+  },
+  {
+    "titulo": "Ejecutivo de Ventas",
+    "empresa": "Comercializadora del Centro",
+    "ubicacion": "Querétaro, México",
+    "sueldo": "$15,000 MXN + comisiones",
+    "descripcion": "Empresa líder en el sector busca ejecutivo de ventas para prospección y cierre de clientes empresariales.",
+    "requisitos": [
+      "Experiencia mínima de 1 año en ventas",
+      "Disponibilidad para viajar",
+      "Automóvil propio (deseable)"
+    ],
+    "prestaciones": [
+      "Seguro de vida",
+      "Bono por desempeño",
+      "Capacitación constante"
+    ],
+    "etiqueta": "Destacado"
+  },
+  {
+    "titulo": "Desarrollador Web Jr.",
+    "empresa": "Tech Solutions",
+    "ubicacion": "Remoto",
+    "sueldo": "$20,000 - $25,000 MXN",
+    "descripcion": "Buscamos programador Jr. con conocimientos en HTML, CSS, JavaScript y frameworks modernos.",
+    "requisitos": [
+      "Licenciatura en Sistemas o afín",
+      "Conocimientos en React o Angular",
+      "Capacidad de trabajo en equipo"
+    ],
+    "prestaciones": [
+      "Trabajo 100% remoto",
+      "Seguro de gastos médicos",
+      "Días adicionales de vacaciones"
+    ],
+    "etiqueta": "Nuevo"
   }
 ]
