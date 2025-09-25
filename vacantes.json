@@ -1,32 +1,26 @@
 [
   {
-    "id": "001",
-    "titulo": "Desarrollador Frontend",
-    "empresa": "TechMX",
+    "titulo": "Coordinador de Reclutamiento",
     "ubicacion": "CDMX",
-    "salario": "$15,000/mes",
-    "descripcion": "Responsable de desarrollar interfaces web modernas...",
-    "requisitos": "HTML, CSS, JavaScript, React",
-    "beneficios": "Seguro médico, home office, horario flexible"
+    "sueldo": "$12,000 - $15,000",
+    "etiqueta": "Urgente"
   },
   {
-    "id": "002",
-    "titulo": "Analista de Recursos Humanos",
-    "empresa": "HR Solutions",
-    "ubicacion": "Toluca",
-    "salario": "$12,000/mes",
-    "descripcion": "Gestionar procesos de reclutamiento y selección...",
-    "requisitos": "Lic. en RRHH, experiencia 1-2 años",
-    "beneficios": "Bonos por desempeño, capacitación continua"
-  },
-  {
-    "id": "003",
     "titulo": "Auxiliar Administrativo",
-    "empresa": "ABC",
     "ubicacion": "Querétaro",
-    "salario": "$10,000/mes",
-    "descripcion": "Apoyo en tareas administrativas y atención a clientes...",
-    "requisitos": "Bachillerato concluido, manejo de office",
-    "beneficios": "Seguro social, vacaciones pagadas"
+    "sueldo": "$8,000 - $10,000",
+    "etiqueta": "Nuevo"
+  },
+  {
+    "titulo": "Desarrollador Web Jr.",
+    "ubicacion": "Guadalajara",
+    "sueldo": "$15,000 - $20,000",
+    "etiqueta": "Destacado"
+  },
+  {
+    "titulo": "Atención a Clientes Call Center",
+    "ubicacion": "Monterrey",
+    "sueldo": "$7,500",
+    "etiqueta": ""
   }
 ]
