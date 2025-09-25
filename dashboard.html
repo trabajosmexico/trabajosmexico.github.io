@@ -4,163 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Trabajos México</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Poppins', Arial, sans-serif;
-      background: #f4f6fa;
+      background: #f5f6fa;
+      margin: 0;
     }
+
     header {
       background: linear-gradient(90deg, #004aad, #0066ff);
       color: white;
-      padding: 1rem;
       text-align: center;
+      padding: 1.2rem 0;
       font-weight: 600;
       letter-spacing: 0.5px;
     }
+
     .dashboard-container {
       display: flex;
       height: calc(100vh - 80px);
     }
+
+    /* Sidebar vacantes */
     .vacantes-list {
       width: 35%;
       border-right: 1px solid #ddd;
       overflow-y: auto;
       background: #fff;
+      padding-top: 1rem;
     }
-    .vacantes-list .vacante {
+
+    .vacante {
       padding: 1.2rem;
-      border-bottom: 1px solid #eee;
+      margin: 0.5rem 1rem;
+      border-radius: 12px;
+      background: #fefefe;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       cursor: pointer;
       transition: all 0.3s;
     }
-    .vacantes-list .vacante:hover {
+
+    .vacante:hover {
       background: #f0f6ff;
-      transform: translateX(3px);
+      transform: translateX(4px);
     }
-    .vacantes-list .titulo {
+
+    .vacante .titulo {
       font-weight: 600;
       font-size: 1.05rem;
       color: #004aad;
     }
-    .vacantes-list .empresa {
+
+    .vacante .empresa {
       color: #666;
       font-size: 0.9rem;
     }
-    .vacantes-list .etiqueta {
+
+    .vacante .etiqueta {
       display: inline-block;
       font-size: 0.75rem;
       font-weight: bold;
       padding: 0.25rem 0.6rem;
       border-radius: 20px;
-      margin-top: 0.4rem;
+      margin-top: 0.3rem;
     }
-    .etiqueta-urgente {
-      background: #ff4757;
-      color: white;
-    }
-    .etiqueta-nuevo {
-      background: #2ed573;
-      color: white;
-    }
-    .etiqueta-destacado {
-      background: #ffa502;
-      color: white;
-    }
+
+    .etiqueta-urgente { background: #ff4757; color: white; }
+    .etiqueta-nuevo { background: #2ed573; color: white; }
+    .etiqueta-destacado { background: #ffa502; color: white; }
+
+    /* Panel de detalle */
     .detalle-vacante {
       flex: 1;
       padding: 2rem;
       overflow-y: auto;
       background: #fafbfc;
     }
+
     .detalle-vacante h3 {
       font-weight: bold;
       color: #004aad;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .detalle-vacante p strong {
-      color: #333;
-    }
-    .detalle-vacante ul {
-      margin-left: 1rem;
-    }
+
+    .detalle-vacante p strong { color: #333; }
+    .detalle-vacante ul { margin-left: 1rem; }
+
     .detalle-vacante .btn-primary {
       background: #004aad;
       border: none;
       transition: 0.3s;
     }
-    .detalle-vacante .btn-primary:hover {
-      background: #0066ff;
-    }
+    .detalle-vacante .btn-primary:hover { background: #0066ff; }
+
     footer {
       background: #222;
       color: white;
       text-align: center;
       padding: 1rem;
+      font-size: 0.9rem;
     }
+
+    footer a { color: #f1f1f1; text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <header>
-    <h2>Bolsa de Trabajo - Trabajos México</h2>
-  </header>
 
-  <div class="dashboard-container">
-    <!-- Lista de vacantes -->
-    <div class="vacantes-list" id="vacantes-list">
-      <p class="text-center mt-3 text-muted">Cargando vacantes...</p>
-    </div>
+<header>
+  <h2>Bolsa de Trabajo - Trabajos México</h2>
+</header>
 
-    <!-- Detalle de vacante -->
-    <div class="detalle-vacante" id="detalle-vacante">
-      <p class="text-muted">Selecciona una vacante para ver los detalles aquí.</p>
-    </div>
+<div class="dashboard-container">
+  <!-- Sidebar vacantes -->
+  <div class="vacantes-list" id="vacantes-list">
+    <p class="text-center text-muted">Cargando vacantes...</p>
   </div>
 
-  <footer>
-    &copy; 2025 Trabajos México - Todos los derechos reservados
-  </footer>
+  <!-- Detalle de vacante -->
+  <div class="detalle-vacante" id="detalle-vacante">
+    <p class="text-muted">Selecciona una vacante para ver los detalles aquí.</p>
+  </div>
+</div>
 
-  <script>
-    async function cargarVacantes() {
-      try {
-        const response = await fetch("vacantes.json");
-        const vacantes = await response.json();
+<footer>
+  &copy; 2025 Trabajos México - Todos los derechos reservados
+  <br>
+  <a href="contacto.html">Contacto</a> | 
+  <a href="terminos.html">Términos y Condiciones</a> | 
+  <a href="privacidad.html">Aviso de Privacidad</a>
+</footer>
 
-        const lista = document.getElementById("vacantes-list");
-        lista.innerHTML = "";
+<script>
+async function cargarVacantes() {
+  try {
+    const response = await fetch("vacantes.json");
+    const vacantes = await response.json();
 
-        vacantes.forEach((vacante, index) => {
-          const item = document.createElement("div");
-          item.classList.add("vacante");
+    const lista = document.getElementById("vacantes-list");
+    lista.innerHTML = "";
 
-          let etiquetaHTML = "";
-          if (vacante.etiqueta) {
-            const clase = vacante.etiqueta.toLowerCase() === "urgente" ? "etiqueta-urgente" :
-                          vacante.etiqueta.toLowerCase() === "nuevo" ? "etiqueta-nuevo" :
-                          vacante.etiqueta.toLowerCase() === "destacado" ? "etiqueta-destacado" : "etiqueta";
-            etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
-          }
-
-          item.innerHTML = `
-            <div class="titulo"><i class="bi bi-briefcase-fill"></i> ${vacante.titulo}</div>
-            <div class="empresa"><i class="bi bi-building"></i> ${vacante.empresa}</div>
-            <div><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</div>
-            <div><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</div>
-            ${etiquetaHTML}
-          `;
-          item.addEventListener("click", () => mostrarDetalle(vacante));
-          lista.appendChild(item);
-
-          if (index === 0) mostrarDetalle(vacante); // Mostrar la primera por defecto
-        });
-      } catch (error) {
-        console.error("Error cargando vacantes:", error);
-      }
-    }
-
-    function mostrarDetalle(vacante) {
-      const detalle = document.getElementById("detalle-vacante");
+    vacantes.forEach((vacante, index) => {
+      const item = document.createElement("div");
+      item.classList.add("vacante");
 
       let etiquetaHTML = "";
       if (vacante.etiqueta) {
@@ -170,23 +166,52 @@
         etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
       }
 
-      detalle.innerHTML = `
-        <h3>${vacante.titulo} ${etiquetaHTML}</h3>
-        <p><strong>Empresa:</strong> ${vacante.empresa}</p>
-        <p><strong>Ubicación:</strong> ${vacante.ubicacion}</p>
-        <p><strong>Sueldo:</strong> ${vacante.sueldo}</p>
-        <hr>
-        <h5>Descripción</h5>
-        <p>${vacante.descripcion}</p>
-        <h5>Requisitos</h5>
-        <ul>${vacante.requisitos.map(req => `<li>${req}</li>`).join("")}</ul>
-        <h5>Prestaciones</h5>
-        <ul>${vacante.prestaciones.map(pre => `<li>${pre}</li>`).join("")}</ul>
-        <a href="index.html" class="btn btn-primary mt-3"><i class="bi bi-send-fill"></i> Postularme</a>
+      item.innerHTML = `
+        <div class="titulo"><i class="bi bi-briefcase-fill"></i> ${vacante.titulo}</div>
+        <div class="empresa"><i class="bi bi-building"></i> ${vacante.empresa}</div>
+        <div><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</div>
+        <div><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</div>
+        ${etiquetaHTML}
       `;
-    }
 
-    cargarVacantes();
-  </script>
+      item.addEventListener("click", () => mostrarDetalle(vacante));
+      lista.appendChild(item);
+
+      if (index === 0) mostrarDetalle(vacante);
+    });
+  } catch (error) {
+    console.error("Error cargando vacantes:", error);
+  }
+}
+
+function mostrarDetalle(vacante) {
+  const detalle = document.getElementById("detalle-vacante");
+
+  let etiquetaHTML = "";
+  if (vacante.etiqueta) {
+    const clase = vacante.etiqueta.toLowerCase() === "urgente" ? "etiqueta-urgente" :
+                  vacante.etiqueta.toLowerCase() === "nuevo" ? "etiqueta-nuevo" :
+                  vacante.etiqueta.toLowerCase() === "destacado" ? "etiqueta-destacado" : "etiqueta";
+    etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
+  }
+
+  detalle.innerHTML = `
+    <h3>${vacante.titulo} ${etiquetaHTML}</h3>
+    <p><strong>Empresa:</strong> ${vacante.empresa}</p>
+    <p><strong>Ubicación:</strong> ${vacante.ubicacion}</p>
+    <p><strong>Sueldo:</strong> ${vacante.sueldo}</p>
+    <hr>
+    <h5>Descripción</h5>
+    <p>${vacante.descripcion}</p>
+    <h5>Requisitos</h5>
+    <ul>${vacante.requisitos.map(req => `<li>${req}</li>`).join("")}</ul>
+    <h5>Prestaciones</h5>
+    <ul>${vacante.prestaciones.map(pre => `<li>${pre}</li>`).join("")}</ul>
+    <a href="index.html" class="btn btn-primary mt-3"><i class="bi bi-send-fill"></i> Postularme</a>
+  `;
+}
+
+cargarVacantes();
+</script>
 </body>
 </html>
