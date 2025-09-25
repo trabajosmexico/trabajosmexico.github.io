@@ -34,17 +34,27 @@
     }
 
     /* Sidebar vacantes */
-    .vacantes-list {
+    .vacantes-sidebar {
       width: 35%;
       border-right: 1px solid #ddd;
-      overflow-y: auto;
       background: #fff;
-      padding-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .filtros {
+      margin-bottom: 1rem;
+    }
+
+    .vacantes-list {
+      overflow-y: auto;
+      flex: 1;
     }
 
     .vacante {
-      padding: 1.2rem;
-      margin: 0.5rem 1rem;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
       border-radius: 12px;
       background: #fefefe;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -59,7 +69,6 @@
 
     .vacante .titulo {
       font-weight: 600;
-      font-size: 1.05rem;
       color: #004aad;
     }
 
@@ -117,6 +126,10 @@
 
     footer a { color: #f1f1f1; text-decoration: none; margin: 0 10px; }
     footer a:hover { text-decoration: underline; }
+
+    /* Estilos filtros */
+    .filtros label { font-weight: 500; }
+    .filtros select, .filtros input { margin-bottom: 0.5rem; }
   </style>
 </head>
 <body>
@@ -127,11 +140,31 @@
 
 <div class="dashboard-container">
   <!-- Sidebar vacantes -->
-  <div class="vacantes-list" id="vacantes-list">
-    <p class="text-center text-muted">Cargando vacantes...</p>
+  <div class="vacantes-sidebar">
+    <div class="filtros">
+      <input type="text" id="busqueda" class="form-control" placeholder="Buscar vacante...">
+      <select id="filtro-ubicacion" class="form-select mt-1">
+        <option value="">Todas las ciudades</option>
+        <option>CDMX</option>
+        <option>Toluca</option>
+        <option>Querétaro</option>
+        <option>Guadalajara</option>
+        <option>Monterrey</option>
+        <option>Puebla</option>
+      </select>
+      <select id="filtro-etiqueta" class="form-select mt-1">
+        <option value="">Todas las etiquetas</option>
+        <option>Urgente</option>
+        <option>Nuevo</option>
+        <option>Destacado</option>
+      </select>
+    </div>
+    <div class="vacantes-list" id="vacantes-list">
+      <p class="text-center text-muted">Cargando vacantes...</p>
+    </div>
   </div>
 
-  <!-- Detalle de vacante -->
+  <!-- Panel detalle -->
   <div class="detalle-vacante" id="detalle-vacante">
     <p class="text-muted">Selecciona una vacante para ver los detalles aquí.</p>
   </div>
@@ -146,42 +179,54 @@
 </footer>
 
 <script>
+let vacantesGlobal = [];
+
 async function cargarVacantes() {
   try {
     const response = await fetch("vacantes.json");
-    const vacantes = await response.json();
+    vacantesGlobal = await response.json();
 
-    const lista = document.getElementById("vacantes-list");
-    lista.innerHTML = "";
-
-    vacantes.forEach((vacante, index) => {
-      const item = document.createElement("div");
-      item.classList.add("vacante");
-
-      let etiquetaHTML = "";
-      if (vacante.etiqueta) {
-        const clase = vacante.etiqueta.toLowerCase() === "urgente" ? "etiqueta-urgente" :
-                      vacante.etiqueta.toLowerCase() === "nuevo" ? "etiqueta-nuevo" :
-                      vacante.etiqueta.toLowerCase() === "destacado" ? "etiqueta-destacado" : "etiqueta";
-        etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
-      }
-
-      item.innerHTML = `
-        <div class="titulo"><i class="bi bi-briefcase-fill"></i> ${vacante.titulo}</div>
-        <div class="empresa"><i class="bi bi-building"></i> ${vacante.empresa}</div>
-        <div><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</div>
-        <div><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</div>
-        ${etiquetaHTML}
-      `;
-
-      item.addEventListener("click", () => mostrarDetalle(vacante));
-      lista.appendChild(item);
-
-      if (index === 0) mostrarDetalle(vacante);
-    });
+    mostrarVacantes(vacantesGlobal);
   } catch (error) {
     console.error("Error cargando vacantes:", error);
   }
+}
+
+function mostrarVacantes(vacantes) {
+  const lista = document.getElementById("vacantes-list");
+  lista.innerHTML = "";
+
+  if(vacantes.length === 0){
+    lista.innerHTML = "<p class='text-center text-muted'>No se encontraron vacantes.</p>";
+    document.getElementById("detalle-vacante").innerHTML = "<p class='text-muted'>Selecciona una vacante para ver los detalles aquí.</p>";
+    return;
+  }
+
+  vacantes.forEach((vacante, index) => {
+    const item = document.createElement("div");
+    item.classList.add("vacante");
+
+    let etiquetaHTML = "";
+    if (vacante.etiqueta) {
+      const clase = vacante.etiqueta.toLowerCase() === "urgente" ? "etiqueta-urgente" :
+                    vacante.etiqueta.toLowerCase() === "nuevo" ? "etiqueta-nuevo" :
+                    vacante.etiqueta.toLowerCase() === "destacado" ? "etiqueta-destacado" : "etiqueta";
+      etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
+    }
+
+    item.innerHTML = `
+      <div class="titulo"><i class="bi bi-briefcase-fill"></i> ${vacante.titulo}</div>
+      <div class="empresa"><i class="bi bi-building"></i> ${vacante.empresa}</div>
+      <div><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</div>
+      <div><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</div>
+      ${etiquetaHTML}
+    `;
+
+    item.addEventListener("click", () => mostrarDetalle(vacante));
+    lista.appendChild(item);
+
+    if (index === 0) mostrarDetalle(vacante);
+  });
 }
 
 function mostrarDetalle(vacante) {
@@ -209,6 +254,26 @@ function mostrarDetalle(vacante) {
     <ul>${vacante.prestaciones.map(pre => `<li>${pre}</li>`).join("")}</ul>
     <a href="index.html" class="btn btn-primary mt-3"><i class="bi bi-send-fill"></i> Postularme</a>
   `;
+}
+
+// Filtrado
+document.getElementById("busqueda").addEventListener("input", filtrar);
+document.getElementById("filtro-ubicacion").addEventListener("change", filtrar);
+document.getElementById("filtro-etiqueta").addEventListener("change", filtrar);
+
+function filtrar() {
+  const palabra = document.getElementById("busqueda").value.toLowerCase();
+  const ubicacion = document.getElementById("filtro-ubicacion").value;
+  const etiqueta = document.getElementById("filtro-etiqueta").value.toLowerCase();
+
+  const filtradas = vacantesGlobal.filter(v => {
+    const cumplePalabra = v.titulo.toLowerCase().includes(palabra) || v.empresa.toLowerCase().includes(palabra);
+    const cumpleUbicacion = ubicacion ? v.ubicacion.includes(ubicacion) : true;
+    const cumpleEtiqueta = etiqueta ? v.etiqueta && v.etiqueta.toLowerCase() === etiqueta : true;
+    return cumplePalabra && cumpleUbicacion && cumpleEtiqueta;
+  });
+
+  mostrarVacantes(filtradas);
 }
 
 cargarVacantes();
