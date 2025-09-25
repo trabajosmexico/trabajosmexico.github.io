@@ -37,6 +37,37 @@
       gap: 2rem;
     }
 
+    .sidebar {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .user-panel {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .user-panel button {
+      margin: 0.5rem 0;
+      width: 100%;
+    }
+
+    .filters {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .filters input, .filters select {
+      margin-bottom: 0.5rem;
+    }
+
     .vacantes-list {
       width: 35%;
       max-height: 80vh;
@@ -105,7 +136,6 @@
       margin-top: 2rem;
     }
 
-    /* Scrollbar */
     .vacantes-list::-webkit-scrollbar, .vacante-details::-webkit-scrollbar {
       width: 6px;
     }
@@ -122,12 +152,37 @@
   <p>Encuentra tu próximo empleo en México</p>
 </header>
 
-<button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
-
 <div class="dashboard-container">
+  <div class="sidebar">
+    <!-- Panel de usuario -->
+    <div class="user-panel">
+      <button class="btn btn-primary" id="misPostulacionesBtn">Mis Postulaciones</button>
+      <button class="btn btn-warning" id="favoritosBtn">Favoritos</button>
+      <button class="btn btn-danger" id="logoutBtnSidebar">Cerrar Sesión</button>
+    </div>
+
+    <!-- Filtros de búsqueda -->
+    <div class="filters">
+      <h6>Filtrar vacantes</h6>
+      <input type="text" id="filtroTitulo" class="form-control" placeholder="Buscar por título...">
+      <select id="filtroUbicacion" class="form-control">
+        <option value="">Todas las ubicaciones</option>
+        <option>CDMX</option>
+        <option>Toluca</option>
+        <option>Querétaro</option>
+        <option>Guadalajara</option>
+        <option>Monterrey</option>
+        <option>Puebla</option>
+        <option>Otro</option>
+      </select>
+      <input type="text" id="filtroEmpresa" class="form-control" placeholder="Buscar por empresa...">
+    </div>
+  </div>
+
   <div class="vacantes-list" id="vacantesList">
     <p>Cargando vacantes...</p>
   </div>
+
   <div class="vacante-details" id="vacanteDetails">
     <h4>Selecciona una vacante para ver los detalles</h4>
   </div>
@@ -147,7 +202,7 @@
     }
   };
 
-  document.getElementById('logoutBtn').addEventListener('click', () => {
+  document.getElementById('logoutBtnSidebar').addEventListener('click', () => {
     localStorage.removeItem('usuarioRegistrado');
     window.location.href = 'index.html';
   });
@@ -156,28 +211,35 @@
   const vacantesList = document.getElementById('vacantesList');
   const vacanteDetails = document.getElementById('vacanteDetails');
 
+  let vacantesGlobal = [];
+
   function cargarVacantes() {
     fetch('vacantes.json')
       .then(response => response.json())
       .then(vacantes => {
-        vacantesList.innerHTML = '';
-        vacantes.forEach(vacante => {
-          const div = document.createElement('div');
-          div.classList.add('vacante-item');
-          div.innerHTML = `
-            <h5>${vacante.titulo} ${vacante.etiqueta ? '<span class="etiqueta">' + vacante.etiqueta + '</span>' : ''}</h5>
-            <p><i class="bi bi-building"></i> ${vacante.empresa}</p>
-            <p><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</p>
-            <p><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</p>
-          `;
-          div.addEventListener('click', () => mostrarDetalles(vacante));
-          vacantesList.appendChild(div);
-        });
+        vacantesGlobal = vacantes;
+        mostrarVacantes(vacantes);
       })
       .catch(error => {
         vacantesList.innerHTML = '<p>Error al cargar vacantes.</p>';
         console.error('Error:', error);
       });
+  }
+
+  function mostrarVacantes(vacantes) {
+    vacantesList.innerHTML = '';
+    vacantes.forEach(vacante => {
+      const div = document.createElement('div');
+      div.classList.add('vacante-item');
+      div.innerHTML = `
+        <h5>${vacante.titulo} ${vacante.etiqueta ? '<span class="etiqueta">' + vacante.etiqueta + '</span>' : ''}</h5>
+        <p><i class="bi bi-building"></i> ${vacante.empresa}</p>
+        <p><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</p>
+        <p><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</p>
+      `;
+      div.addEventListener('click', () => mostrarDetalles(vacante));
+      vacantesList.appendChild(div);
+    });
   }
 
   function mostrarDetalles(vacante) {
@@ -193,6 +255,29 @@
       <h5>Prestaciones:</h5>
       <ul>${vacante.prestaciones.map(prest => `<li>${prest}</li>`).join('')}</ul>
     `;
+  }
+
+  // ======= FILTROS =======
+  const filtroTitulo = document.getElementById('filtroTitulo');
+  const filtroUbicacion = document.getElementById('filtroUbicacion');
+  const filtroEmpresa = document.getElementById('filtroEmpresa');
+
+  filtroTitulo.addEventListener('input', aplicarFiltros);
+  filtroUbicacion.addEventListener('change', aplicarFiltros);
+  filtroEmpresa.addEventListener('input', aplicarFiltros);
+
+  function aplicarFiltros() {
+    const titulo = filtroTitulo.value.toLowerCase();
+    const ubicacion = filtroUbicacion.value;
+    const empresa = filtroEmpresa.value.toLowerCase();
+
+    const filtradas = vacantesGlobal.filter(v => 
+      v.titulo.toLowerCase().includes(titulo) &&
+      (ubicacion === "" || v.ubicacion === ubicacion) &&
+      v.empresa.toLowerCase().includes(empresa)
+    );
+
+    mostrarVacantes(filtradas);
   }
 </script>
 
