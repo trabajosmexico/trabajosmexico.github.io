@@ -90,6 +90,13 @@
       margin-top: 0.3rem;
     }
 
+    #logoutBtn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+    }
+
     footer {
       background: #222;
       color: white;
@@ -115,6 +122,8 @@
   <p>Encuentra tu próximo empleo en México</p>
 </header>
 
+<button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+
 <div class="dashboard-container">
   <div class="vacantes-list" id="vacantesList">
     <p>Cargando vacantes...</p>
@@ -129,30 +138,47 @@
 </footer>
 
 <script>
+  // ======= SESIÓN =======
+  window.onload = () => {
+    if(localStorage.getItem('usuarioRegistrado') !== 'true'){
+      window.location.href = 'index.html';
+    } else {
+      cargarVacantes();
+    }
+  };
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('usuarioRegistrado');
+    window.location.href = 'index.html';
+  });
+
+  // ======= CARGAR VACANTES =======
   const vacantesList = document.getElementById('vacantesList');
   const vacanteDetails = document.getElementById('vacanteDetails');
 
-  fetch('vacantes.json')
-    .then(response => response.json())
-    .then(vacantes => {
-      vacantesList.innerHTML = '';
-      vacantes.forEach((vacante, index) => {
-        const div = document.createElement('div');
-        div.classList.add('vacante-item');
-        div.innerHTML = `
-          <h5>${vacante.titulo} ${vacante.etiqueta ? '<span class="etiqueta">' + vacante.etiqueta + '</span>' : ''}</h5>
-          <p><i class="bi bi-building"></i> ${vacante.empresa}</p>
-          <p><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</p>
-          <p><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</p>
-        `;
-        div.addEventListener('click', () => mostrarDetalles(vacante));
-        vacantesList.appendChild(div);
+  function cargarVacantes() {
+    fetch('vacantes.json')
+      .then(response => response.json())
+      .then(vacantes => {
+        vacantesList.innerHTML = '';
+        vacantes.forEach(vacante => {
+          const div = document.createElement('div');
+          div.classList.add('vacante-item');
+          div.innerHTML = `
+            <h5>${vacante.titulo} ${vacante.etiqueta ? '<span class="etiqueta">' + vacante.etiqueta + '</span>' : ''}</h5>
+            <p><i class="bi bi-building"></i> ${vacante.empresa}</p>
+            <p><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</p>
+            <p><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</p>
+          `;
+          div.addEventListener('click', () => mostrarDetalles(vacante));
+          vacantesList.appendChild(div);
+        });
+      })
+      .catch(error => {
+        vacantesList.innerHTML = '<p>Error al cargar vacantes.</p>';
+        console.error('Error:', error);
       });
-    })
-    .catch(error => {
-      vacantesList.innerHTML = '<p>Error al cargar vacantes.</p>';
-      console.error('Error:', error);
-    });
+  }
 
   function mostrarDetalles(vacante) {
     vacanteDetails.innerHTML = `
