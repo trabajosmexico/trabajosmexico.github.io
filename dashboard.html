@@ -29,22 +29,22 @@ footer a:hover { text-decoration:underline; }
 </header>
 
 <div class="container my-5">
-  <!-- Filtros -->
+  <!-- Filtros y Buscador -->
   <div class="filter-section">
     <div class="row g-3">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <label for="filtroUbicacion" class="form-label">Ubicación</label>
         <select id="filtroUbicacion" class="form-select">
           <option value="">Todas</option>
         </select>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <label for="filtroEmpresa" class="form-label">Empresa</label>
         <select id="filtroEmpresa" class="form-select">
           <option value="">Todas</option>
         </select>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <label for="filtroSalario" class="form-label">Rango Salarial</label>
         <select id="filtroSalario" class="form-select">
           <option value="">Todos</option>
@@ -53,6 +53,10 @@ footer a:hover { text-decoration:underline; }
           <option value="20000">Menos de $20,000</option>
           <option value="20001">Más de $20,000</option>
         </select>
+      </div>
+      <div class="col-md-3">
+        <label for="buscador" class="form-label">Buscar por palabra clave</label>
+        <input type="text" id="buscador" class="form-control" placeholder="Ej. frontend, ventas...">
       </div>
     </div>
   </div>
@@ -136,15 +140,17 @@ footer a:hover { text-decoration:underline; }
     });
   }
 
-  // Filtros
+  // Eventos de filtros
   document.getElementById('filtroUbicacion').addEventListener('change', aplicarFiltros);
   document.getElementById('filtroEmpresa').addEventListener('change', aplicarFiltros);
   document.getElementById('filtroSalario').addEventListener('change', aplicarFiltros);
+  document.getElementById('buscador').addEventListener('input', aplicarFiltros);
 
   function aplicarFiltros(){
     const ubicacion = document.getElementById('filtroUbicacion').value;
     const empresa = document.getElementById('filtroEmpresa').value;
     const salario = document.getElementById('filtroSalario').value;
+    const palabraClave = document.getElementById('buscador').value.toLowerCase();
 
     let listaFiltrada = vacantes.filter(v => {
       let match = true;
@@ -158,6 +164,11 @@ footer a:hover { text-decoration:underline; }
         if(salario === "15000" && numSalario >= 15000) match = false;
         if(salario === "20000" && numSalario >= 20000) match = false;
         if(salario === "20001" && numSalario <= 20000) match = false;
+      }
+
+      if(palabraClave){
+        const texto = `${v.titulo} ${v.empresa} ${v.descripcion || ''}`.toLowerCase();
+        if(!texto.includes(palabraClave)) match = false;
       }
 
       return match;
