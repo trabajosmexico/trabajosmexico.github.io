@@ -9,13 +9,15 @@
   <style>
     body {
       font-family: 'Poppins', Arial, sans-serif;
-      background: #f5f7fa;
+      background: #f4f6fa;
     }
     header {
       background: linear-gradient(90deg, #004aad, #0066ff);
       color: white;
       padding: 1rem;
       text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
     .dashboard-container {
       display: flex;
@@ -28,41 +30,67 @@
       background: #fff;
     }
     .vacantes-list .vacante {
-      padding: 1rem;
+      padding: 1.2rem;
       border-bottom: 1px solid #eee;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.3s;
     }
     .vacantes-list .vacante:hover {
-      background: #f1f5ff;
+      background: #f0f6ff;
+      transform: translateX(3px);
     }
     .vacantes-list .titulo {
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      color: #004aad;
     }
     .vacantes-list .empresa {
-      color: #555;
+      color: #666;
       font-size: 0.9rem;
     }
     .vacantes-list .etiqueta {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      margin-top: 0.4rem;
+    }
+    .etiqueta-urgente {
       background: #ff4757;
       color: white;
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      margin-top: 0.3rem;
+    }
+    .etiqueta-nuevo {
+      background: #2ed573;
+      color: white;
+    }
+    .etiqueta-destacado {
+      background: #ffa502;
+      color: white;
     }
     .detalle-vacante {
       flex: 1;
       padding: 2rem;
       overflow-y: auto;
+      background: #fafbfc;
     }
     .detalle-vacante h3 {
       font-weight: bold;
+      color: #004aad;
+    }
+    .detalle-vacante p strong {
+      color: #333;
     }
     .detalle-vacante ul {
       margin-left: 1rem;
+    }
+    .detalle-vacante .btn-primary {
+      background: #004aad;
+      border: none;
+      transition: 0.3s;
+    }
+    .detalle-vacante .btn-primary:hover {
+      background: #0066ff;
     }
     footer {
       background: #222;
@@ -105,12 +133,21 @@
         vacantes.forEach((vacante, index) => {
           const item = document.createElement("div");
           item.classList.add("vacante");
+
+          let etiquetaHTML = "";
+          if (vacante.etiqueta) {
+            const clase = vacante.etiqueta.toLowerCase() === "urgente" ? "etiqueta-urgente" :
+                          vacante.etiqueta.toLowerCase() === "nuevo" ? "etiqueta-nuevo" :
+                          vacante.etiqueta.toLowerCase() === "destacado" ? "etiqueta-destacado" : "etiqueta";
+            etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
+          }
+
           item.innerHTML = `
-            <div class="titulo">${vacante.titulo}</div>
+            <div class="titulo"><i class="bi bi-briefcase-fill"></i> ${vacante.titulo}</div>
             <div class="empresa"><i class="bi bi-building"></i> ${vacante.empresa}</div>
             <div><i class="bi bi-geo-alt"></i> ${vacante.ubicacion}</div>
             <div><i class="bi bi-currency-dollar"></i> ${vacante.sueldo}</div>
-            ${vacante.etiqueta ? `<span class="etiqueta">${vacante.etiqueta}</span>` : ""}
+            ${etiquetaHTML}
           `;
           item.addEventListener("click", () => mostrarDetalle(vacante));
           lista.appendChild(item);
@@ -124,12 +161,20 @@
 
     function mostrarDetalle(vacante) {
       const detalle = document.getElementById("detalle-vacante");
+
+      let etiquetaHTML = "";
+      if (vacante.etiqueta) {
+        const clase = vacante.etiqueta.toLowerCase() === "urgente" ? "etiqueta-urgente" :
+                      vacante.etiqueta.toLowerCase() === "nuevo" ? "etiqueta-nuevo" :
+                      vacante.etiqueta.toLowerCase() === "destacado" ? "etiqueta-destacado" : "etiqueta";
+        etiquetaHTML = `<span class="etiqueta ${clase}">${vacante.etiqueta}</span>`;
+      }
+
       detalle.innerHTML = `
-        <h3>${vacante.titulo}</h3>
+        <h3>${vacante.titulo} ${etiquetaHTML}</h3>
         <p><strong>Empresa:</strong> ${vacante.empresa}</p>
         <p><strong>Ubicación:</strong> ${vacante.ubicacion}</p>
         <p><strong>Sueldo:</strong> ${vacante.sueldo}</p>
-        ${vacante.etiqueta ? `<p><strong>Etiqueta:</strong> <span class="etiqueta">${vacante.etiqueta}</span></p>` : ""}
         <hr>
         <h5>Descripción</h5>
         <p>${vacante.descripcion}</p>
@@ -137,7 +182,7 @@
         <ul>${vacante.requisitos.map(req => `<li>${req}</li>`).join("")}</ul>
         <h5>Prestaciones</h5>
         <ul>${vacante.prestaciones.map(pre => `<li>${pre}</li>`).join("")}</ul>
-        <a href="index.html" class="btn btn-primary mt-3">Postularme</a>
+        <a href="index.html" class="btn btn-primary mt-3"><i class="bi bi-send-fill"></i> Postularme</a>
       `;
     }
 
